@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.worlds_best_dad">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="worlds_best_dad"
+        android:label="World's Best Dad"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

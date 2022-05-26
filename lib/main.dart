@@ -1,25 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:worlds_best_dad/providers/favourites_provider.dart';
 import 'package:worlds_best_dad/providers/joke_provider.dart';
+import 'package:worlds_best_dad/screens/about_screen.dart';
+import 'package:worlds_best_dad/screens/favourites_screen.dart';
 import 'package:worlds_best_dad/screens/joke_screen.dart';
 import 'package:worlds_best_dad/screens/welcome_screen.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider<JokeProvider>(
-      create: (context) {
-        JokeProvider jokeProvider = JokeProvider();
-        jokeProvider.getJoke();
-        return jokeProvider;
-      },
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: WelcomeScreen.routeId,
-        routes: {
-          WelcomeScreen.routeId: (context) => const WelcomeScreen(),
-          JokeScreen.routeId: (context) => const JokeScreen(),
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  final ThemeData theme = ThemeData();
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<JokeProvider>(
+        create: (context) {
+          JokeProvider jokeProvider = JokeProvider();
+          jokeProvider.getJoke();
+          return jokeProvider;
         },
       ),
+      ChangeNotifierProvider<FavouritesProvider>(
+        create: (context) {
+          FavouritesProvider favouritesProvider = FavouritesProvider();
+          favouritesProvider.getFavourites();
+          return favouritesProvider;
+        },
+      ),
+    ],
+    child: MaterialApp(
+      theme: theme.copyWith(
+          colorScheme: theme.colorScheme.copyWith(secondary: Colors.brown)),
+      debugShowCheckedModeBanner: false,
+      initialRoute: WelcomeScreen.routeId,
+      routes: {
+        WelcomeScreen.routeId: (context) => const WelcomeScreen(),
+        JokeScreen.routeId: (context) => const JokeScreen(),
+        FavouritesScreen.routeId: (context) => const FavouritesScreen(),
+        AboutScreen.routeId: (context) => const AboutScreen(),
+      },
     ),
-  );
+  ));
 }

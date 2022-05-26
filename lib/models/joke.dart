@@ -1,5 +1,19 @@
 class Joke {
-  String text;
+  String setup;
+  String delivery;
 
-  Joke(this.text);
+  Joke({required this.setup, required this.delivery});
+
+  factory Joke.fromJsonMap(Map<String, dynamic> parsedJson) {
+    return Joke(
+        setup: parsedJson['setup'] ?? "",
+        delivery: parsedJson['delivery'] ?? "");
+  }
+
+  Map<String, dynamic> toJsonMap() {
+    return {
+      "setup": setup,
+      "delivery": delivery,
+    };
+  }
 }

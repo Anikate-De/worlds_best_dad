@@ -12,12 +12,27 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Provider.of<JokeProvider>(context).getJoke();
-
     return Consumer<JokeProvider>(builder: (context, jokeProvider, child) {
-      if (!jokeProvider.loadingJoke) {
-        Future.delayed(Duration.zero,
-            () => Navigator.pushReplacementNamed(context, JokeScreen.routeId));
+      if (jokeProvider.errorOccurred) {
+        Future.delayed(
+            Duration.zero,
+            () => ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    duration: const Duration(days: 1),
+                    action: SnackBarAction(
+                        label: 'RETRY',
+                        onPressed: () => jokeProvider.getJoke()),
+                    content: const Text('Unable to connect to internet..'),
+                  ),
+                ));
+      } else {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        if (!jokeProvider.loadingJoke) {
+          Future.delayed(
+              const Duration(milliseconds: 400),
+              () =>
+                  Navigator.pushReplacementNamed(context, JokeScreen.routeId));
+        }
       }
       return Scaffold(
         backgroundColor: Colors.amber.shade50,
@@ -35,14 +50,11 @@ class WelcomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 64,
                       ),
-                      Hero(
-                        tag: 'mustache',
-                        child: SvgPicture.asset(
-                          'assets/vectors/mustache.svg',
-                          fit: BoxFit.fitWidth,
-                          width: 240,
-                          color: Colors.brown,
-                        ),
+                      SvgPicture.asset(
+                        'assets/vectors/mustache.svg',
+                        fit: BoxFit.fitWidth,
+                        width: 240,
+                        color: Colors.brown,
                       ),
                       const SizedBox(
                         height: 12,
@@ -54,9 +66,9 @@ class WelcomeScreen extends StatelessWidget {
                           child: Text(
                             'Hello there!',
                             style: GoogleFonts.pacifico(
-                              letterSpacing: 0.4,
-                              wordSpacing: 2,
-                            ),
+                                letterSpacing: 0.4,
+                                wordSpacing: 2,
+                                color: Colors.brown.shade800),
                           ),
                         ),
                       ),
@@ -66,7 +78,7 @@ class WelcomeScreen extends StatelessWidget {
                           fontSize: 22,
                           letterSpacing: 1,
                           wordSpacing: 2,
-                          color: Colors.brown.shade800,
+                          color: Colors.brown.shade600,
                         ),
                       ),
                       const SizedBox(
@@ -86,9 +98,10 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 28),
+                  padding: EdgeInsets.only(
+                      bottom: jokeProvider.errorOccurred ? 68 : 28),
                   child: Text(
-                    'World\'s Best Dad v0.0.1',
+                    'World\'s Best Dad v0.0.2',
                     style: GoogleFonts.varelaRound(
                       letterSpacing: 0.4,
                       wordSpacing: 2,
