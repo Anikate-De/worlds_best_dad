@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -128,17 +129,23 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                         )
                       ]
                     : [
-                        const Icon(
-                          Icons.heart_broken_rounded,
-                          color: Colors.brown,
-                          size: 120,
+                        Flexible(
+                          child: SizedBox(
+                            child: Icon(
+                              Icons.heart_broken_rounded,
+                              color: Colors.brown,
+                              size: MediaQuery.of(context).size.height < 500
+                                  ? 80
+                                  : 120,
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 30,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
+                          child: AutoSizeText(
                             'Looks like you don\'t like any of my jokes...',
                             textAlign: TextAlign.center,
                             style: GoogleFonts.varelaRound(
@@ -155,7 +162,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
+                          child: AutoSizeText(
                             'So... anyway,\nYou\'re adopted',
                             textAlign: TextAlign.center,
                             style: GoogleFonts.varelaRound(
