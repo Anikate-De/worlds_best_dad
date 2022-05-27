@@ -48,8 +48,10 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLandscapeOriented =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    bool segmentedUI =
+        MediaQuery.of(context).orientation == Orientation.landscape ||
+            MediaQuery.of(context).size.width >= 600 &&
+                MediaQuery.of(context).size.width <= 900;
     return Scaffold(
         backgroundColor: Colors.amber.shade50,
         appBar: AppBar(
@@ -67,9 +69,10 @@ class AboutScreen extends StatelessWidget {
                 children: [
                   Flex(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    direction:
-                        isLandscapeOriented ? Axis.horizontal : Axis.vertical,
+                    crossAxisAlignment: segmentedUI
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
+                    direction: segmentedUI ? Axis.horizontal : Axis.vertical,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +97,7 @@ class AboutScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'v0.0.2',
+                            'v0.0.3',
                             style: GoogleFonts.varelaRound(
                               fontSize: 18,
                               letterSpacing: 0.4,
@@ -114,14 +117,21 @@ class AboutScreen extends StatelessWidget {
                               main: 'Flutter 3', desc: 'Built with'),
                           const DualToneTextBlock(
                               main: 'May 27th, 2022', desc: 'Version Log'),
-                          isLandscapeOriented
+                          segmentedUI
                               ? const SizedBox.shrink()
                               : const SizedBox(
                                   height: 30,
                                 ),
                         ],
                       ),
-                      const Attributions(),
+                      segmentedUI
+                          ? const SizedBox(
+                              width: 30,
+                            )
+                          : const SizedBox.shrink(),
+                      segmentedUI
+                          ? const Flexible(child: Attributions())
+                          : const Attributions(),
                     ],
                   ),
                   const EndNote()

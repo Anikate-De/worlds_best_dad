@@ -3,9 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:worlds_best_dad/models/joke.dart';
-import 'package:worlds_best_dad/screens/joke_screen.dart';
 
 import '../providers/favourites_provider.dart';
+import '../widgets/joke_card.dart';
+import '../widgets/logo_svg.dart';
 
 class FavouritesScreen extends StatefulWidget {
   static String routeId = 'favourites';
@@ -63,11 +64,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                     ? [
                         isLandscapeOriented
                             ? const SizedBox.shrink()
-                            : SvgPicture.asset(
-                                'assets/vectors/mustache.svg',
-                                fit: BoxFit.fitWidth,
-                                width: 180,
-                                color: Colors.brown,
+                            : const LogoSVG(
+                                mini: true,
                               ),
                         SizedBox(
                           height: isLandscapeOriented ? 10 : 24,

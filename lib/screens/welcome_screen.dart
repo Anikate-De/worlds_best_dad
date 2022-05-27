@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:worlds_best_dad/providers/joke_provider.dart';
 import 'package:worlds_best_dad/screens/joke_screen.dart';
+
+import '../widgets/logo_svg.dart';
 
 class WelcomeScreen extends StatelessWidget {
   static String routeId = 'welcome';
@@ -47,38 +48,25 @@ class WelcomeScreen extends StatelessWidget {
                           Orientation.landscape
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
+                          children: const [
                             Center(
-                              child: SizedBox(
-                                width: 240,
-                                child: SvgPicture.asset(
-                                  'assets/vectors/mustache.svg',
-                                  fit: BoxFit.fitWidth,
-                                  width: 240,
-                                  color: Colors.brown,
-                                ),
-                              ),
+                              child: LogoSVG(),
                             ),
-                            const GreetingsTextColumn(),
+                            GreetingsTextColumn(),
                           ],
                         )
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(
+                          children: const [
+                            SizedBox(
                               height: 64,
                             ),
-                            SvgPicture.asset(
-                              'assets/vectors/mustache.svg',
-                              fit: BoxFit.fitWidth,
-                              width: 240,
-                              color: Colors.brown,
-                            ),
-                            const SizedBox(
+                            LogoSVG(),
+                            SizedBox(
                               height: 12,
                             ),
-                            const GreetingsTextColumn(),
+                            GreetingsTextColumn(),
                           ],
                         ),
                 ),
@@ -86,7 +74,7 @@ class WelcomeScreen extends StatelessWidget {
                   padding: EdgeInsets.only(
                       bottom: jokeProvider.errorOccurred ? 68 : 28),
                   child: Text(
-                    'World\'s Best Dad v0.0.2',
+                    'World\'s Best Dad v0.0.3',
                     style: GoogleFonts.varelaRound(
                       letterSpacing: 0.4,
                       wordSpacing: 2,
