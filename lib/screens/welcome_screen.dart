@@ -43,59 +43,44 @@ class WelcomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 64,
-                      ),
-                      SvgPicture.asset(
-                        'assets/vectors/mustache.svg',
-                        fit: BoxFit.fitWidth,
-                        width: 240,
-                        color: Colors.brown,
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      SizedBox(
-                        width: 240,
-                        child: FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Text(
-                            'Hello there!',
-                            style: GoogleFonts.pacifico(
-                                letterSpacing: 0.4,
-                                wordSpacing: 2,
-                                color: Colors.brown.shade800),
-                          ),
+                  child: MediaQuery.of(context).orientation ==
+                          Orientation.landscape
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Center(
+                              child: SizedBox(
+                                width: 240,
+                                child: SvgPicture.asset(
+                                  'assets/vectors/mustache.svg',
+                                  fit: BoxFit.fitWidth,
+                                  width: 240,
+                                  color: Colors.brown,
+                                ),
+                              ),
+                            ),
+                            const GreetingsTextColumn(),
+                          ],
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              height: 64,
+                            ),
+                            SvgPicture.asset(
+                              'assets/vectors/mustache.svg',
+                              fit: BoxFit.fitWidth,
+                              width: 240,
+                              color: Colors.brown,
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            const GreetingsTextColumn(),
+                          ],
                         ),
-                      ),
-                      Text(
-                        'My Sperms',
-                        style: GoogleFonts.pacifico(
-                          fontSize: 22,
-                          letterSpacing: 1,
-                          wordSpacing: 2,
-                          color: Colors.brown.shade600,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 44,
-                      ),
-                      Text(
-                        '[screaming begins]',
-                        style: GoogleFonts.bitter(
-                          letterSpacing: 1,
-                          wordSpacing: 4,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
-                          color: Colors.brown.shade400,
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -117,5 +102,54 @@ class WelcomeScreen extends StatelessWidget {
         ),
       );
     });
+  }
+}
+
+class GreetingsTextColumn extends StatelessWidget {
+  const GreetingsTextColumn({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 240,
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              'Hello there!',
+              style: GoogleFonts.pacifico(
+                  letterSpacing: 0.4,
+                  wordSpacing: 2,
+                  color: Colors.brown.shade800),
+            ),
+          ),
+        ),
+        Text(
+          'My Sperms',
+          style: GoogleFonts.pacifico(
+            fontSize: 22,
+            letterSpacing: 1,
+            wordSpacing: 2,
+            color: Colors.brown.shade600,
+          ),
+        ),
+        const SizedBox(
+          height: 44,
+        ),
+        Text(
+          '[screaming begins]',
+          style: GoogleFonts.bitter(
+            letterSpacing: 1,
+            wordSpacing: 4,
+            fontWeight: FontWeight.w700,
+            fontSize: 18,
+            color: Colors.brown.shade400,
+          ),
+        ),
+      ],
+    );
   }
 }

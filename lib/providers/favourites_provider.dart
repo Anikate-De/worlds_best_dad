@@ -35,7 +35,8 @@ class FavouritesProvider extends ChangeNotifier {
   }
 
   void removeFromFavourites(Joke joke) {
-    _favouriteJokes.remove(joke);
+    _favouriteJokes.removeWhere((element) =>
+        element.setup == joke.setup && element.delivery == joke.delivery);
     notifyListeners();
   }
 

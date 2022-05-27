@@ -48,6 +48,8 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscapeOriented =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return Scaffold(
         backgroundColor: Colors.amber.shade50,
         appBar: AppBar(
@@ -61,98 +63,146 @@ class AboutScreen extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SvgPicture.asset(
-                    'assets/vectors/mustache.svg',
-                    fit: BoxFit.fitWidth,
-                    width: 100,
-                    color: Colors.brown,
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Text(
-                    'World\'s Best Dad',
-                    style: GoogleFonts.varelaRound(
-                      fontSize: 28,
-                      letterSpacing: 0.8,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.brown.shade800,
-                    ),
-                  ),
-                  Text(
-                    'v0.0.2',
-                    style: GoogleFonts.varelaRound(
-                      fontSize: 18,
-                      letterSpacing: 0.4,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.brown.shade400,
-                    ),
-                  ),
-                  const DualToneTextBlock(
-                      main: 'May 23rd, 2022', desc: 'When it all started'),
-                  const DualToneTextBlock(
-                      main: 'Anikate De • 17yrs',
-                      desc:
-                          'Designer\nProgrammer\nInnovator\nThe mind behind this app'),
-                  const DualToneTextBlock(
-                      main: 'Flutter 3', desc: 'Built with'),
-                  const DualToneTextBlock(
-                      main: 'May 27th, 2022', desc: 'Version Log'),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    'Special Thanks to',
-                    style: GoogleFonts.varelaRound(
-                      fontSize: 28,
-                      letterSpacing: 0.8,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.brown.shade800,
-                    ),
-                  ),
-                  const DualToneTextBlock(
-                      main: 'JokeAPI • Sven Fehler',
-                      desc: 'MIT License • Permitted to Commercial Use'),
-                  Text(
-                    'https://sv443.net/jokeapi/v2/',
-                    style: GoogleFonts.varelaRound(
-                      fontSize: 16,
-                      wordSpacing: 0.6,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                      color: Colors.brown.shade300,
-                    ),
-                  ),
-                  const DualToneTextBlock(
-                      main: 'You', desc: 'For downloading my app'),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'For everyone who misses their Dad',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.pacifico(
-                        fontSize: 18,
-                        letterSpacing: 0.8,
-                        wordSpacing: 1,
-                        color: Colors.brown.shade400,
+                  Flex(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    direction:
+                        isLandscapeOriented ? Axis.horizontal : Axis.vertical,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/vectors/mustache.svg',
+                            fit: BoxFit.fitWidth,
+                            width: 100,
+                            color: Colors.brown,
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Text(
+                            'World\'s Best Dad',
+                            style: GoogleFonts.varelaRound(
+                              fontSize: 30,
+                              letterSpacing: 0.8,
+                              wordSpacing: 1,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.brown.shade900,
+                            ),
+                          ),
+                          Text(
+                            'v0.0.2',
+                            style: GoogleFonts.varelaRound(
+                              fontSize: 18,
+                              letterSpacing: 0.4,
+                              wordSpacing: 1,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.brown.shade400,
+                            ),
+                          ),
+                          const DualToneTextBlock(
+                              main: 'May 23rd, 2022',
+                              desc: 'When it all started'),
+                          const DualToneTextBlock(
+                              main: 'Anikate De • 17yrs',
+                              desc:
+                                  'Designer\nProgrammer\nInnovator\nThe mind behind this app'),
+                          const DualToneTextBlock(
+                              main: 'Flutter 3', desc: 'Built with'),
+                          const DualToneTextBlock(
+                              main: 'May 27th, 2022', desc: 'Version Log'),
+                          isLandscapeOriented
+                              ? const SizedBox.shrink()
+                              : const SizedBox(
+                                  height: 30,
+                                ),
+                        ],
                       ),
-                    ),
+                      const Attributions(),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const EndNote()
                 ],
               ),
             ),
           ),
         ));
+  }
+}
+
+class Attributions extends StatelessWidget {
+  const Attributions({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          'Special Thanks to',
+          style: GoogleFonts.varelaRound(
+            fontSize: 28,
+            letterSpacing: 0.8,
+            wordSpacing: 1,
+            fontWeight: FontWeight.bold,
+            color: Colors.brown.shade800,
+          ),
+        ),
+        const DualToneTextBlock(
+            main: 'JokeAPI • Sven Fehler',
+            desc: 'MIT License • Permitted to Commercial Use'),
+        Text(
+          'https://sv443.net/jokeapi/v2/',
+          style: GoogleFonts.varelaRound(
+            fontSize: 16,
+            wordSpacing: 0.6,
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline,
+            color: Colors.brown.shade300,
+          ),
+        ),
+        const DualToneTextBlock(main: 'You', desc: 'For downloading my app'),
+      ],
+    );
+  }
+}
+
+class EndNote extends StatelessWidget {
+  const EndNote({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(
+          height: 30,
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Text(
+            'For everyone who misses their Dad',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.pacifico(
+              fontSize: 18,
+              letterSpacing: 0.8,
+              wordSpacing: 1,
+              color: Colors.brown.shade400,
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+      ],
+    );
   }
 }

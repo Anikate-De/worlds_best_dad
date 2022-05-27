@@ -1,9 +1,9 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:worlds_best_dad/models/joke.dart';
+import 'package:worlds_best_dad/screens/joke_screen.dart';
 
 import '../providers/favourites_provider.dart';
 
@@ -18,19 +18,35 @@ class FavouritesScreen extends StatefulWidget {
 
 class _FavouritesScreenState extends State<FavouritesScreen> {
   int globalIndex = 0;
-  PageController pageController = PageController(
-    viewportFraction: 0.85,
-    initialPage: 0,
-  );
+  late PageController pageController;
+  bool isLandscapeOriented = false;
 
   @override
   Widget build(BuildContext context) {
+    isLandscapeOriented =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    pageController = PageController(
+      viewportFraction: isLandscapeOriented ? 0.75 : 0.85,
+      initialPage: 0,
+    );
     return Consumer<FavouritesProvider>(
         builder: (context, favouritesProvider, child) {
       List<Joke> favourites = favouritesProvider.favouriteJokes;
       return Scaffold(
         backgroundColor: Colors.amber.shade50,
         appBar: AppBar(
+          centerTitle: true,
+          title: isLandscapeOriented && favourites.isNotEmpty
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: SvgPicture.asset(
+                    'assets/vectors/mustache.svg',
+                    fit: BoxFit.fitHeight,
+                    height: 60,
+                    color: Colors.brown,
+                  ),
+                )
+              : const SizedBox.shrink(),
           iconTheme: const IconThemeData(color: Colors.brown),
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -38,20 +54,23 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
         body: SafeArea(
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.only(left: 0, right: 0, bottom: 30),
+              padding: EdgeInsets.only(
+                  left: 0, right: 0, bottom: isLandscapeOriented ? 20 : 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: favourites.isNotEmpty
                     ? [
-                        SvgPicture.asset(
-                          'assets/vectors/mustache.svg',
-                          fit: BoxFit.fitWidth,
-                          width: 180,
-                          color: Colors.brown,
-                        ),
-                        const SizedBox(
-                          height: 24,
+                        isLandscapeOriented
+                            ? const SizedBox.shrink()
+                            : SvgPicture.asset(
+                                'assets/vectors/mustache.svg',
+                                fit: BoxFit.fitWidth,
+                                width: 180,
+                                color: Colors.brown,
+                              ),
+                        SizedBox(
+                          height: isLandscapeOriented ? 10 : 24,
                         ),
                         Expanded(
                           child: PageView.builder(
@@ -60,106 +79,18 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                             controller: pageController,
                             itemCount: favourites.length,
                             itemBuilder: (context, index) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 16.0, horizontal: 8),
-                              child: Stack(
-                                children: [
-                                  Card(
-                                    elevation: 10,
-                                    shadowColor: Colors.brown.shade800,
-                                    color: Colors.brown.shade700,
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(30))),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 18, horizontal: 16),
-                                      child: Column(
-                                        children: [
-                                          const SizedBox(
-                                            height: 8,
-                                          ),
-                                          Expanded(
-                                            child: Align(
-                                              alignment: Alignment.bottomCenter,
-                                              child: AutoSizeText(
-                                                favourites
-                                                    .elementAt(index)
-                                                    .setup,
-                                                textAlign: TextAlign.center,
-                                                style: GoogleFonts.varelaRound(
-                                                  letterSpacing: 0.4,
-                                                  wordSpacing: 2,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 32,
-                                                  color: Colors.grey.shade100,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 30,
-                                          ),
-                                          Expanded(
-                                            child: AutoSizeText(
-                                              favourites
-                                                  .elementAt(index)
-                                                  .delivery,
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.varelaRound(
-                                                letterSpacing: 0.6,
-                                                wordSpacing: 1,
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle: FontStyle.italic,
-                                                fontSize: 26,
-                                                color: Colors.orange.shade100,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 12,
-                                    right: 12,
-                                    child: GestureDetector(
-                                      behavior: HitTestBehavior.opaque,
-                                      onTap: () {
-                                        favouritesProvider.modifyFavourites(
-                                            favourites.elementAt(index));
-                                      },
-                                      child: Material(
-                                        elevation: 10,
-                                        color: Colors.white,
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(30)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Icon(
-                                            favouritesProvider.isInFavourites(
-                                                    favourites.elementAt(index))
-                                                ? Icons.favorite_rounded
-                                                : Icons
-                                                    .favorite_outline_rounded,
-                                            size: 24,
-                                            color: favouritesProvider
-                                                    .isInFavourites(favourites
-                                                        .elementAt(index))
-                                                ? Colors.red
-                                                : Colors.grey.shade600,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: isLandscapeOriented ? 12 : 16.0,
+                                    horizontal: isLandscapeOriented ? 20 : 8),
+                                child: JokeCard(
+                                  joke: favourites.elementAt(index),
+                                  isDeliverable: false,
+                                  isLoadable: false,
+                                )),
                           ),
                         ),
-                        const SizedBox(
-                          height: 24,
+                        SizedBox(
+                          height: isLandscapeOriented ? 10 : 24,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -178,8 +109,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                 size: 28,
                               ),
                             ),
-                            const SizedBox(
-                              width: 20,
+                            SizedBox(
+                              width: isLandscapeOriented ? 40 : 20,
                             ),
                             FloatingActionButton(
                               heroTag: 'btnRight',
