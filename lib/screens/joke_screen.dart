@@ -39,7 +39,7 @@ class JokeScreen extends StatelessWidget {
                     child: SvgPicture.asset(
                       'assets/vectors/mustache.svg',
                       fit: BoxFit.fitHeight,
-                      height: 60,
+                      height: 46,
                       color: Colors.brown,
                     ),
                   )
@@ -141,7 +141,7 @@ class JokeScreen extends StatelessWidget {
                                                   style:
                                                       GoogleFonts.varelaRound(
                                                     fontWeight: FontWeight.w600,
-                                                    fontSize: 18,
+                                                    fontSize: 14,
                                                     color: Colors.white,
                                                   ),
                                                 ),

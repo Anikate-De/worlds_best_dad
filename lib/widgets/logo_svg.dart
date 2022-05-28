@@ -11,7 +11,7 @@ class LogoSVG extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: mini ? 180 : 200,
+      width: mini ? 130 : 200,
       child: SvgPicture.asset(
         'assets/vectors/mustache.svg',
         fit: BoxFit.fitWidth,

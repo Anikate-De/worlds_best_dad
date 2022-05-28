@@ -28,7 +28,7 @@ class JokeCard extends StatelessWidget {
         return Stack(
           children: [
             Card(
-              elevation: 10,
+              elevation: 6,
               shadowColor: Colors.brown.shade800,
               color: Colors.brown.shade700,
               shape: const RoundedRectangleBorder(
@@ -56,6 +56,8 @@ class JokeCard extends StatelessWidget {
                               : Alignment.bottomCenter,
                           child: AutoSizeText(
                             joke.setup,
+                            minFontSize: 6,
+                            wrapWords: false,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.varelaRound(
                               letterSpacing: 0.4,
@@ -85,6 +87,8 @@ class JokeCard extends StatelessWidget {
                           child: AutoSizeText(
                             joke.delivery,
                             textAlign: TextAlign.center,
+                            wrapWords: false,
+                            minFontSize: 6,
                             style: GoogleFonts.varelaRound(
                               letterSpacing: 0.6,
                               wordSpacing: 1,

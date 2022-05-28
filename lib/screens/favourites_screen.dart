@@ -25,10 +25,15 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool wideDisplay = MediaQuery.of(context).size.aspectRatio >= 1.9;
     isLandscapeOriented =
         MediaQuery.of(context).orientation == Orientation.landscape;
     pageController = PageController(
-      viewportFraction: isLandscapeOriented ? 0.75 : 0.85,
+      viewportFraction: isLandscapeOriented
+          ? wideDisplay
+              ? 0.5
+              : 0.75
+          : 0.85,
       initialPage: 0,
     );
     return Consumer<FavouritesProvider>(
@@ -44,7 +49,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                   child: SvgPicture.asset(
                     'assets/vectors/mustache.svg',
                     fit: BoxFit.fitHeight,
-                    height: 60,
+                    height: 46,
                     color: Colors.brown,
                   ),
                 )
@@ -68,11 +73,14 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                             : const LogoSVG(
                                 mini: true,
                               ),
-                        SizedBox(
-                          height: isLandscapeOriented ? 10 : 24,
-                        ),
+                        isLandscapeOriented
+                            ? const SizedBox.shrink()
+                            : const SizedBox(
+                                height: 24,
+                              ),
                         Expanded(
                           child: PageView.builder(
+                            padEnds: !wideDisplay,
                             physics: const BouncingScrollPhysics(),
                             onPageChanged: (index) => globalIndex = index,
                             controller: pageController,
@@ -80,7 +88,11 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                             itemBuilder: (context, index) => Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: isLandscapeOriented ? 12 : 16.0,
-                                    horizontal: isLandscapeOriented ? 20 : 8),
+                                    horizontal: isLandscapeOriented
+                                        ? wideDisplay
+                                            ? 14
+                                            : 20
+                                        : 8),
                                 child: JokeCard(
                                   joke: favourites.elementAt(index),
                                   isDeliverable: false,
@@ -88,14 +100,17 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                 )),
                           ),
                         ),
-                        SizedBox(
-                          height: isLandscapeOriented ? 10 : 24,
-                        ),
+                        isLandscapeOriented
+                            ? const SizedBox.shrink()
+                            : const SizedBox(
+                                height: 24,
+                              ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FloatingActionButton(
                               heroTag: 'btnLeft',
+                              mini: isLandscapeOriented,
                               onPressed: () {
                                 pageController.animateToPage(globalIndex - 1,
                                     duration: const Duration(milliseconds: 250),
@@ -108,10 +123,11 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                 size: 28,
                               ),
                             ),
-                            SizedBox(
-                              width: isLandscapeOriented ? 40 : 20,
+                            const SizedBox(
+                              width: 20,
                             ),
                             FloatingActionButton(
+                              mini: isLandscapeOriented,
                               heroTag: 'btnRight',
                               onPressed: () {
                                 pageController.animateToPage(globalIndex + 1,
