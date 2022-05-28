@@ -58,12 +58,16 @@ class JokeScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: favouritesProvider.favouriteJokes.isNotEmpty
                       ? Badge(
+                          animationDuration: const Duration(milliseconds: 150),
                           animationType: BadgeAnimationType.scale,
-                          position: BadgePosition.topEnd(top: 0),
+                          position: BadgePosition.topEnd(top: 2),
                           badgeColor: Colors.white,
                           badgeContent: Text(
                             favouritesProvider.favouriteJokes.length.toString(),
-                            style: TextStyle(color: Colors.brown.shade800),
+                            style: GoogleFonts.varelaRound(
+                                color: Colors.brown,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold),
                           ),
                           child: const Icon(
                             Icons.favorite_rounded,
