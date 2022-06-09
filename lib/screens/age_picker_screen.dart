@@ -250,6 +250,12 @@ class _AgePickerScreenState extends State<AgePickerScreen>
                                     print(
                                         'User wants to see Data Collection, Privacy Policy & T&C');
                                   }
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    duration: Duration(seconds: 3),
+                                    content: Text(
+                                        'Sorry, we\'re currently working on building a thorough Privacy Policy & T&C for you'),
+                                  ));
                                 },
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
