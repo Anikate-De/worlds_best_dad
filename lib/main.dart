@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:worlds_best_dad/providers/favourites_provider.dart';
 import 'package:worlds_best_dad/providers/joke_provider.dart';
+import 'package:worlds_best_dad/providers/user_settings_provider.dart';
 import 'package:worlds_best_dad/screens/about_screen.dart';
+import 'package:worlds_best_dad/screens/age_picker_screen.dart';
 import 'package:worlds_best_dad/screens/favourites_screen.dart';
 import 'package:worlds_best_dad/screens/joke_screen.dart';
 import 'package:worlds_best_dad/screens/welcome_screen.dart';
@@ -33,6 +35,13 @@ void main() {
           return favouritesProvider;
         },
       ),
+      ChangeNotifierProvider<UserSettingsProvider>(
+        create: (context) {
+          UserSettingsProvider userSettingsProvider = UserSettingsProvider();
+          userSettingsProvider.getUserSettings();
+          return userSettingsProvider;
+        },
+      ),
     ],
     child: MaterialApp(
       theme: theme.copyWith(
@@ -41,6 +50,7 @@ void main() {
       initialRoute: WelcomeScreen.routeId,
       routes: {
         WelcomeScreen.routeId: (context) => const WelcomeScreen(),
+        AgePickerScreen.routeId: (context) => const AgePickerScreen(),
         JokeScreen.routeId: (context) => const JokeScreen(),
         FavouritesScreen.routeId: (context) => const FavouritesScreen(),
         AboutScreen.routeId: (context) => const AboutScreen(),

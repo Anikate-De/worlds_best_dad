@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:worlds_best_dad/providers/joke_provider.dart';
+import 'package:worlds_best_dad/providers/user_settings_provider.dart';
+import 'package:worlds_best_dad/screens/age_picker_screen.dart';
 import 'package:worlds_best_dad/screens/joke_screen.dart';
 
 import '../widgets/logo_svg.dart';
@@ -13,7 +15,8 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<JokeProvider>(builder: (context, jokeProvider, child) {
+    return Consumer2<JokeProvider, UserSettingsProvider>(
+        builder: (context, jokeProvider, userSettingsProvider, child) {
       if (jokeProvider.errorOccurred) {
         Future.delayed(
             Duration.zero,
@@ -27,12 +30,22 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ));
       } else {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        if (!jokeProvider.loadingJoke) {
-          Future.delayed(
-              const Duration(milliseconds: 400),
-              () =>
-                  Navigator.pushReplacementNamed(context, JokeScreen.routeId));
+        if (!userSettingsProvider.settings.containsKey('adult')) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          if (!jokeProvider.loadingJoke) {
+            Future.delayed(
+                const Duration(milliseconds: 400),
+                () => Navigator.pushReplacementNamed(
+                    context, AgePickerScreen.routeId));
+          }
+        } else {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          if (!jokeProvider.loadingJoke) {
+            Future.delayed(
+                const Duration(milliseconds: 400),
+                () => Navigator.pushReplacementNamed(
+                    context, JokeScreen.routeId));
+          }
         }
       }
       return Scaffold(

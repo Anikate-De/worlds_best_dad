@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:worlds_best_dad/providers/favourites_provider.dart';
 import 'package:worlds_best_dad/providers/joke_provider.dart';
+import 'package:worlds_best_dad/providers/user_settings_provider.dart';
 import 'package:worlds_best_dad/screens/about_screen.dart';
 import 'package:worlds_best_dad/screens/favourites_screen.dart';
 import 'package:worlds_best_dad/screens/welcome_screen.dart';
@@ -21,8 +22,9 @@ class JokeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLandscapeOriented =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    return Consumer2<JokeProvider, FavouritesProvider>(
-      builder: (context, jokeProvider, favouritesProvider, child) {
+    return Consumer3<JokeProvider, FavouritesProvider, UserSettingsProvider>(
+      builder: (context, jokeProvider, favouritesProvider, userSettingsProvider,
+          child) {
         if (jokeProvider.errorOccurred) {
           Future.delayed(
               Duration.zero,
@@ -127,7 +129,9 @@ class JokeScreen extends StatelessWidget {
                               onPressed: jokeProvider.loadingJoke
                                   ? null
                                   : () {
-                                      jokeProvider.getJoke();
+                                      jokeProvider.getJoke(
+                                          safe: !userSettingsProvider
+                                              .settings['adult']);
                                     },
                               label: Padding(
                                 padding:

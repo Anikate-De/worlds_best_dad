@@ -14,7 +14,7 @@ class JokeProvider extends ChangeNotifier {
   Joke joke = Joke(setup: '', delivery: '');
   Timer? _timer;
 
-  void getJoke() async {
+  void getJoke({bool safe = true}) async {
     if (_timer != null && _timer!.isActive) {
       _timer!.cancel();
     }
@@ -25,8 +25,9 @@ class JokeProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      var url = Uri.parse(
-          "https://joke-api-ad.herokuapp.com/dad/apiKey=Anik12680900");
+      var url = Uri.parse(safe
+          ? "https://joke-api-ad.herokuapp.com/dad/safe/apiKey=Anik12680900"
+          : "https://joke-api-ad.herokuapp.com/dad/apiKey=Anik12680900");
       var response = await client.get(url);
 
       if (response.statusCode != 200) {
