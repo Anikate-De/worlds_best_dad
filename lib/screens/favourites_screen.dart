@@ -25,7 +25,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool wideDisplay = MediaQuery.of(context).size.aspectRatio >= 1.9;
+    bool wideDisplay = MediaQuery.of(context).size.aspectRatio >= 1.75;
     isLandscapeOriented =
         MediaQuery.of(context).orientation == Orientation.landscape;
     pageController = PageController(

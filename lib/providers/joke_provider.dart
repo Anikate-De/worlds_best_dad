@@ -25,7 +25,8 @@ class JokeProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      var url = Uri.parse("https://v2.jokeapi.dev/joke/Pun?type=twopart");
+      var url = Uri.parse(
+          "https://joke-api-ad.herokuapp.com/dad/apiKey=Anik12680900");
       var response = await client.get(url);
 
       if (response.statusCode != 200) {
@@ -34,7 +35,7 @@ class JokeProvider extends ChangeNotifier {
 
       joke = Joke(
         setup: jsonDecode(response.body)['setup'],
-        delivery: jsonDecode(response.body)['delivery'],
+        delivery: jsonDecode(response.body)['punchline'],
       );
       showDelivery();
       errorOccurred = false;
