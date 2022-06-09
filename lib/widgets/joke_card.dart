@@ -57,6 +57,7 @@ class JokeCard extends StatelessWidget {
                           child: AutoSizeText(
                             joke.setup,
                             minFontSize: 6,
+                            maxFontSize: 32,
                             wrapWords: false,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.varelaRound(
@@ -89,6 +90,7 @@ class JokeCard extends StatelessWidget {
                             textAlign: TextAlign.center,
                             wrapWords: false,
                             minFontSize: 6,
+                            maxFontSize: 26,
                             style: GoogleFonts.varelaRound(
                               letterSpacing: 0.6,
                               wordSpacing: 1,
@@ -132,9 +134,86 @@ class JokeCard extends StatelessWidget {
                 ),
               ),
             ),
+            !joke.safe
+                ? Positioned(
+                    top: 18,
+                    right: 64,
+                    child: Tooltip(
+                      verticalOffset: 36,
+                      margin: const EdgeInsets.symmetric(horizontal: 34),
+                      triggerMode: TooltipTriggerMode.tap,
+                      preferBelow: false,
+                      showDuration: const Duration(milliseconds: 4000),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.brown.shade900.withOpacity(0.9),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      textStyle: GoogleFonts.varelaRound(
+                        fontSize: 16,
+                        letterSpacing: -0.2,
+                        color: Colors.white,
+                      ),
+                      message: createTooltipMessage(),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 2),
+                        decoration: BoxDecoration(
+                            color: Colors.red.shade900.withOpacity(.6),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
+                            border: Border.all(
+                                width: 2,
+                                color:
+                                    Colors.redAccent.shade400.withOpacity(.3))),
+                        child: const Icon(
+                          Icons.warning_amber_rounded,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
           ],
         );
       },
     );
+  }
+
+  String createTooltipMessage() {
+    String message = 'Flagged ';
+    bool flag = false;
+    if (joke.nsfw) {
+      message = '${message}NSFW, ';
+      flag = true;
+    }
+    if (joke.explicit) {
+      message = '${message}Explicit, ';
+      flag = true;
+    }
+    if (joke.political) {
+      message = '${message}Political, ';
+      flag = true;
+    }
+    if (joke.racist) {
+      message = '${message}Racist, ';
+      flag = true;
+    }
+    if (joke.sexist) {
+      message = '${message}Sexist, ';
+      flag = true;
+    }
+    if (joke.religious) {
+      message = '${message}Religious, ';
+      flag = true;
+    }
+    if (!joke.safe) {
+      message = flag
+          ? '${message.substring(0, message.length - 2)} & Unsafe for Children'
+          : '${message}Unsafe for Children';
+    }
+    return message;
   }
 }
