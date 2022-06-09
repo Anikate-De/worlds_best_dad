@@ -85,7 +85,7 @@ class JokeCard extends StatelessWidget {
                                   : 0
                               : 1,
                           child: AutoSizeText(
-                            joke.delivery,
+                            joke.punchline,
                             textAlign: TextAlign.center,
                             wrapWords: false,
                             minFontSize: 6,

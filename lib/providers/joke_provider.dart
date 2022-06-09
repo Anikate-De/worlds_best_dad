@@ -11,7 +11,7 @@ class JokeProvider extends ChangeNotifier {
   bool loadingJoke = true;
   bool isDeliveryVisible = false;
   bool errorOccurred = false;
-  Joke joke = Joke(setup: '', delivery: '');
+  late Joke joke;
   Timer? _timer;
 
   void getJoke({bool safe = true}) async {
@@ -34,10 +34,7 @@ class JokeProvider extends ChangeNotifier {
         throw Exception('Invalid response from API');
       }
 
-      joke = Joke(
-        setup: jsonDecode(response.body)['setup'],
-        delivery: jsonDecode(response.body)['punchline'],
-      );
+      joke = Joke.fromJsonMap(jsonDecode(response.body));
       showDelivery();
       errorOccurred = false;
     } catch (error) {

@@ -36,7 +36,7 @@ class FavouritesProvider extends ChangeNotifier {
 
   void removeFromFavourites(Joke joke) {
     _favouriteJokes.removeWhere((element) =>
-        element.setup == joke.setup && element.delivery == joke.delivery);
+        element.setup == joke.setup && element.punchline == joke.punchline);
     notifyListeners();
   }
 
@@ -61,6 +61,6 @@ class FavouritesProvider extends ChangeNotifier {
 
   bool isInFavourites(Joke joke) {
     return _favouriteJokes.any((Joke favourite) =>
-        favourite.setup == joke.setup && favourite.delivery == joke.delivery);
+        favourite.setup == joke.setup && favourite.punchline == joke.punchline);
   }
 }
