@@ -17,6 +17,9 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<JokeProvider, UserSettingsProvider>(
         builder: (context, jokeProvider, userSettingsProvider, child) {
+      bool keepSafe = !userSettingsProvider.settings.containsKey('adult') ||
+          (userSettingsProvider.settings.containsKey('adult') &&
+              !userSettingsProvider.settings['adult']);
       if (jokeProvider.errorOccurred) {
         Future.delayed(
             Duration.zero,
@@ -71,15 +74,17 @@ class WelcomeScreen extends StatelessWidget {
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
-                            SizedBox(
+                          children: [
+                            const SizedBox(
                               height: 64,
                             ),
-                            LogoSVG(),
-                            SizedBox(
+                            const LogoSVG(),
+                            const SizedBox(
                               height: 12,
                             ),
-                            GreetingsTextColumn(),
+                            GreetingsTextColumn(
+                              safeGreetings: keepSafe,
+                            ),
                           ],
                         ),
                 ),
@@ -107,7 +112,10 @@ class WelcomeScreen extends StatelessWidget {
 }
 
 class GreetingsTextColumn extends StatelessWidget {
-  const GreetingsTextColumn({Key? key}) : super(key: key);
+  final bool safeGreetings;
+
+  const GreetingsTextColumn({this.safeGreetings = true, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +137,7 @@ class GreetingsTextColumn extends StatelessWidget {
           ),
         ),
         Text(
-          'My Sperms',
+          safeGreetings ? 'Kids' : 'My Sperms',
           style: GoogleFonts.pacifico(
             fontSize: 22,
             letterSpacing: 1,
@@ -141,7 +149,7 @@ class GreetingsTextColumn extends StatelessWidget {
           height: 44,
         ),
         Text(
-          '[screaming begins]',
+          safeGreetings ? '[fatherly vibes]' : '[screaming begins]',
           style: GoogleFonts.bitter(
             letterSpacing: 1,
             wordSpacing: 4,
