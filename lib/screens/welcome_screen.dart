@@ -92,7 +92,7 @@ class WelcomeScreen extends StatelessWidget {
                   padding: EdgeInsets.only(
                       bottom: jokeProvider.errorOccurred ? 68 : 28),
                   child: Text(
-                    'World\'s Best Dad v0.0.3',
+                    'World\'s Best Dad v0.0.4',
                     style: GoogleFonts.varelaRound(
                       letterSpacing: 0.4,
                       wordSpacing: 2,
