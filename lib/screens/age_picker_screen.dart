@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:worlds_best_dad/providers/user_settings_provider.dart';
+import 'package:worlds_best_dad/screens/disclaimer_screen.dart';
 import 'package:worlds_best_dad/screens/joke_screen.dart';
 import 'package:worlds_best_dad/widgets/logo_svg.dart';
 
@@ -149,7 +149,8 @@ class _AgePickerScreenState extends State<AgePickerScreen>
                       children: [
                         isLandscapeOriented
                             ? const SizedBox.shrink()
-                            : const LogoSVG(mini: true),
+                            : const Hero(
+                                tag: 'logo', child: LogoSVG(mini: true)),
                         const SizedBox(
                           height: 20,
                         ),
@@ -246,16 +247,8 @@ class _AgePickerScreenState extends State<AgePickerScreen>
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  if (kDebugMode) {
-                                    print(
-                                        'User wants to see Data Collection, Privacy Policy & T&C');
-                                  }
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                    duration: Duration(seconds: 3),
-                                    content: Text(
-                                        'Sorry, we\'re currently working on building a thorough Privacy Policy & T&C for you'),
-                                  ));
+                                  Navigator.pushNamed(
+                                      context, DisclaimerScreen.routeId);
                                 },
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -285,15 +278,8 @@ class _AgePickerScreenState extends State<AgePickerScreen>
                                               color: Colors.brown.shade400),
                                           children: const <TextSpan>[
                                             TextSpan(
-                                                text: 'Privacy Statement',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    letterSpacing: 0,
-                                                    decoration: TextDecoration
-                                                        .underline)),
-                                            TextSpan(text: ' & '),
-                                            TextSpan(
-                                                text: 'T&C',
+                                                text:
+                                                    'Privacy Statement & Disclaimer',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     letterSpacing: 0,

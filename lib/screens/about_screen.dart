@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:worlds_best_dad/providers/favourites_provider.dart';
+import 'package:worlds_best_dad/providers/user_settings_provider.dart';
+import 'package:worlds_best_dad/screens/welcome_screen.dart';
 
 class DualToneTextBlock extends StatelessWidget {
   final String main;
@@ -19,7 +23,7 @@ class DualToneTextBlock extends StatelessWidget {
         Text(
           main,
           style: GoogleFonts.varelaRound(
-            fontSize: 22,
+            fontSize: 18,
             wordSpacing: 0.6,
             fontWeight: FontWeight.bold,
             color: Colors.brown,
@@ -31,7 +35,7 @@ class DualToneTextBlock extends StatelessWidget {
         Text(
           desc,
           style: GoogleFonts.varelaRound(
-            fontSize: 16,
+            fontSize: 14,
             wordSpacing: 0.6,
             fontWeight: FontWeight.bold,
             color: Colors.brown.shade300,
@@ -134,7 +138,60 @@ class AboutScreen extends StatelessWidget {
                           : const Attributions(),
                     ],
                   ),
-                  const EndNote()
+                  const EndNote(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Consumer2<UserSettingsProvider, FavouritesProvider>(
+                        builder: (context, userSettingsProvider,
+                                favouritesProvider, child) =>
+                            TextButton.icon(
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all(Colors.red),
+                                overlayColor: MaterialStateProperty.all(
+                                    Colors.red.shade100),
+                              ),
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: const Duration(seconds: 3),
+                                    action: SnackBarAction(
+                                        label: 'CONFIRM',
+                                        onPressed: () {
+                                          userSettingsProvider.resetProgress();
+                                          favouritesProvider.getFavourites();
+                                          userSettingsProvider
+                                              .getUserSettings();
+                                          Navigator.pushNamedAndRemoveUntil(
+                                              context,
+                                              WelcomeScreen.routeId,
+                                              (route) => false);
+                                        },
+                                        textColor: Colors.red),
+                                    content: const Text(
+                                      'This action will reset any progress you\'ve made so far, including your favourites collection',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        wordSpacing: 0.6,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(Icons.delete_forever_rounded),
+                              label: Text(
+                                'Reset App Configurations',
+                                style: GoogleFonts.varelaRound(
+                                  fontSize: 12,
+                                  wordSpacing: 0.6,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )),
+                  )
                 ],
               ),
             ),
@@ -164,20 +221,32 @@ class Attributions extends StatelessWidget {
             color: Colors.brown.shade800,
           ),
         ),
+        const DualToneTextBlock(main: 'You', desc: 'For downloading my app'),
         const DualToneTextBlock(
-            main: 'JokeAPI • Sven Fehler',
-            desc: 'MIT License • Permitted to Commercial Use'),
+            main: 'JokeAPI Dataset • Sven Fehler',
+            desc: 'MIT License • Open Source'),
         Text(
           'https://sv443.net/jokeapi/v2/',
           style: GoogleFonts.varelaRound(
-            fontSize: 16,
+            fontSize: 14,
             wordSpacing: 0.6,
             fontWeight: FontWeight.bold,
             decoration: TextDecoration.underline,
             color: Colors.brown.shade300,
           ),
         ),
-        const DualToneTextBlock(main: 'You', desc: 'For downloading my app'),
+        const DualToneTextBlock(
+            main: 'Official Jokes API Dataset • 15Dkatz', desc: 'Open Source'),
+        Text(
+          'https://github.com/15Dkatz/official_joke_api',
+          style: GoogleFonts.varelaRound(
+            fontSize: 14,
+            wordSpacing: 0.6,
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline,
+            color: Colors.brown.shade300,
+          ),
+        ),
       ],
     );
   }

@@ -25,6 +25,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     bool wideDisplay = MediaQuery.of(context).size.aspectRatio >= 1.75;
     isLandscapeOriented =
         MediaQuery.of(context).orientation == Orientation.landscape;
@@ -70,13 +71,17 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                     ? [
                         isLandscapeOriented
                             ? const SizedBox.shrink()
-                            : const LogoSVG(
-                                mini: true,
+                            : SizedBox(
+                                height: height * 0.1,
+                                child: const FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: LogoSVG(mini: true),
+                                ),
                               ),
                         isLandscapeOriented
                             ? const SizedBox.shrink()
-                            : const SizedBox(
-                                height: 24,
+                            : SizedBox(
+                                height: height * 0.03,
                               ),
                         Expanded(
                           child: PageView.builder(
@@ -102,8 +107,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                         ),
                         isLandscapeOriented
                             ? const SizedBox.shrink()
-                            : const SizedBox(
-                                height: 24,
+                            : SizedBox(
+                                height: height * 0.03,
                               ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

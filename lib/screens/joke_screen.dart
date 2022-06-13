@@ -20,6 +20,7 @@ class JokeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     bool isLandscapeOriented =
         MediaQuery.of(context).orientation == Orientation.landscape;
     return Consumer3<JokeProvider, FavouritesProvider, UserSettingsProvider>(
@@ -101,9 +102,15 @@ class JokeScreen extends StatelessWidget {
                   children: [
                     isLandscapeOriented
                         ? const SizedBox.shrink()
-                        : const LogoSVG(mini: true),
+                        : SizedBox(
+                            height: height * 0.1,
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: LogoSVG(mini: true),
+                            ),
+                          ),
                     SizedBox(
-                      height: isLandscapeOriented ? 20 : 40,
+                      height: isLandscapeOriented ? 20 : height * 0.04,
                     ),
                     Expanded(
                       child: Flex(
@@ -120,7 +127,7 @@ class JokeScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: isLandscapeOriented ? 0 : 40,
+                            height: isLandscapeOriented ? 0 : height * 0.04,
                             width: isLandscapeOriented ? 40 : 0,
                           ),
                           RotatedBox(
@@ -157,13 +164,13 @@ class JokeScreen extends StatelessWidget {
                                               .toList(),
                                         ))
                                     : Text(
-                                        'ONE MORE!',
+                                        'ONE MORE',
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.varelaRound(
-                                          letterSpacing: 0.4,
+                                          letterSpacing: 0.8,
                                           wordSpacing: 2,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 20,
+                                          fontSize: height < 600 ? 14 : 18,
                                           color: Colors.white,
                                         ),
                                       ),

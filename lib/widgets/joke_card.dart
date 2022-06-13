@@ -160,13 +160,11 @@ class JokeCard extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 2),
                         decoration: BoxDecoration(
-                            color: Colors.red.shade900.withOpacity(.6),
+                            color: Colors.red.shade900,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(20)),
                             border: Border.all(
-                                width: 2,
-                                color:
-                                    Colors.redAccent.shade400.withOpacity(.3))),
+                                width: 2, color: Colors.redAccent.shade700)),
                         child: const Icon(
                           Icons.warning_amber_rounded,
                           color: Colors.white,
@@ -211,8 +209,8 @@ class JokeCard extends StatelessWidget {
     }
     if (!joke.safe) {
       message = flag
-          ? '${message.substring(0, message.length - 2)} & Unsafe for Children'
-          : '${message}Unsafe for Children';
+          ? '${message.substring(0, message.length - 2)} & Not for Children'
+          : '${message}Not for Children';
     }
     return message;
   }

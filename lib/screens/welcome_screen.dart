@@ -37,7 +37,7 @@ class WelcomeScreen extends StatelessWidget {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           if (!jokeProvider.loadingJoke) {
             Future.delayed(
-                const Duration(milliseconds: 400),
+                Duration.zero,
                 () => Navigator.pushReplacementNamed(
                     context, AgePickerScreen.routeId));
           }

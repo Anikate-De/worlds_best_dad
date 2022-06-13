@@ -6,6 +6,7 @@ import 'package:worlds_best_dad/providers/joke_provider.dart';
 import 'package:worlds_best_dad/providers/user_settings_provider.dart';
 import 'package:worlds_best_dad/screens/about_screen.dart';
 import 'package:worlds_best_dad/screens/age_picker_screen.dart';
+import 'package:worlds_best_dad/screens/disclaimer_screen.dart';
 import 'package:worlds_best_dad/screens/favourites_screen.dart';
 import 'package:worlds_best_dad/screens/joke_screen.dart';
 import 'package:worlds_best_dad/screens/welcome_screen.dart';
@@ -51,6 +52,7 @@ void main() {
       routes: {
         WelcomeScreen.routeId: (context) => const WelcomeScreen(),
         AgePickerScreen.routeId: (context) => const AgePickerScreen(),
+        DisclaimerScreen.routeId: (context) => const DisclaimerScreen(),
         JokeScreen.routeId: (context) => const JokeScreen(),
         FavouritesScreen.routeId: (context) => const FavouritesScreen(),
         AboutScreen.routeId: (context) => const AboutScreen(),

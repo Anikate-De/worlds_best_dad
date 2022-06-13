@@ -26,8 +26,8 @@ class JokeProvider extends ChangeNotifier {
 
     try {
       var url = Uri.parse(safe
-          ? "https://joke-api-ad.herokuapp.com/dad/safe/apiKey=Anik12680900"
-          : "https://joke-api-ad.herokuapp.com/dad/apiKey=Anik12680900");
+          ? "http://joke-api-ad.herokuapp.com/dad/public/random?apiKey=Anik12680900&safety=safe"
+          : "http://joke-api-ad.herokuapp.com/dad/public/random?apiKey=Anik12680900");
       var response = await client.get(url);
 
       if (response.statusCode != 200) {

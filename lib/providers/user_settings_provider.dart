@@ -19,4 +19,9 @@ class UserSettingsProvider extends ChangeNotifier {
     await sharedPreferences.setString('user_settings', jsonEncode(settings));
     notifyListeners();
   }
+
+  void resetProgress() async {
+    await sharedPreferences.clear();
+    notifyListeners();
+  }
 }
