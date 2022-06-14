@@ -34,19 +34,30 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ));
       } else {
+        int delay = 0;
+        if (jokeProvider.jokeStartedLoading != null) {
+          int difference = jokeProvider.jokeStartedLoading!
+              .difference(DateTime.now())
+              .inMilliseconds;
+          if (difference > 600) {
+            delay = 0;
+          } else {
+            delay = 600 - difference;
+          }
+        }
+
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
         if (!userSettingsProvider.settings.containsKey('adult')) {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           if (!jokeProvider.loadingJoke) {
             Future.delayed(
-                Duration.zero,
+                Duration(milliseconds: delay),
                 () => Navigator.pushReplacementNamed(
                     context, AgePickerScreen.routeId));
           }
         } else {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           if (!jokeProvider.loadingJoke) {
             Future.delayed(
-                const Duration(milliseconds: 400),
+                Duration(milliseconds: delay),
                 () => Navigator.pushReplacementNamed(
                     context, JokeScreen.routeId));
           }
@@ -84,9 +95,12 @@ class WelcomeScreen extends StatelessWidget {
                               height: 64,
                             ),
                             SizedBox(
-                                height: height * 0.12,
-                                child: const FittedBox(
-                                    fit: BoxFit.scaleDown, child: LogoSVG())),
+                              height: height * 0.12,
+                              child: const FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: LogoSVG(),
+                              ),
+                            ),
                             const SizedBox(
                               height: 12,
                             ),

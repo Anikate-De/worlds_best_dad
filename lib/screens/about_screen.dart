@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:worlds_best_dad/providers/favourites_provider.dart';
+import 'package:worlds_best_dad/providers/joke_provider.dart';
 import 'package:worlds_best_dad/providers/user_settings_provider.dart';
 import 'package:worlds_best_dad/screens/welcome_screen.dart';
 
@@ -127,9 +128,10 @@ class AboutScreen extends StatelessWidget {
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Consumer2<UserSettingsProvider, FavouritesProvider>(
+                    child: Consumer3<UserSettingsProvider, FavouritesProvider,
+                            JokeProvider>(
                         builder: (context, userSettingsProvider,
-                                favouritesProvider, child) =>
+                                favouritesProvider, jokeProvider, child) =>
                             TextButton.icon(
                               style: ButtonStyle(
                                 foregroundColor:
@@ -148,6 +150,7 @@ class AboutScreen extends StatelessWidget {
                                           favouritesProvider.getFavourites();
                                           userSettingsProvider
                                               .getUserSettings();
+                                          jokeProvider.getJoke();
                                           Navigator.pushNamedAndRemoveUntil(
                                               context,
                                               WelcomeScreen.routeId,

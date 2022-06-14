@@ -13,11 +13,14 @@ class JokeProvider extends ChangeNotifier {
   bool errorOccurred = false;
   late Joke joke;
   Timer? _timer;
+  DateTime? jokeStartedLoading;
 
   void getJoke({bool safe = true}) async {
     if (_timer != null && _timer!.isActive) {
       _timer!.cancel();
     }
+
+    jokeStartedLoading = DateTime.now();
 
     loadingJoke = true;
     isDeliveryVisible = false;
