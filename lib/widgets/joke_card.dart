@@ -36,7 +36,7 @@ class JokeCard extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: isLandscapeOriented ? 20 : 8,
-                    horizontal: isLandscapeOriented ? 40 : 16),
+                    horizontal: isLandscapeOriented ? 16 : 16),
                 child: LoadingOverlay(
                   color: Colors.brown.shade700,
                   isLoading: isLoadable ? jokeProvider.loadingJoke : false,
@@ -52,7 +52,7 @@ class JokeCard extends StatelessWidget {
                       Expanded(
                         child: Align(
                           alignment: isLandscapeOriented
-                              ? Alignment.center
+                              ? Alignment.centerRight
                               : Alignment.bottomCenter,
                           child: AutoSizeText(
                             joke.setup,
@@ -72,7 +72,7 @@ class JokeCard extends StatelessWidget {
                       ),
                       isLandscapeOriented
                           ? const SizedBox(
-                              width: 30,
+                              width: 20,
                             )
                           : const SizedBox(
                               height: 30,

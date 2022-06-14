@@ -52,10 +52,6 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool segmentedUI =
-        MediaQuery.of(context).orientation == Orientation.landscape ||
-            MediaQuery.of(context).size.width >= 600 &&
-                MediaQuery.of(context).size.width <= 900;
     return Scaffold(
         backgroundColor: Colors.amber.shade50,
         appBar: AppBar(
@@ -71,12 +67,8 @@ class AboutScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Flex(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: segmentedUI
-                        ? CrossAxisAlignment.end
-                        : CrossAxisAlignment.start,
-                    direction: segmentedUI ? Axis.horizontal : Axis.vertical,
+                  Wrap(
+                    alignment: WrapAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,21 +113,12 @@ class AboutScreen extends StatelessWidget {
                               main: 'Flutter 3', desc: 'Built with'),
                           const DualToneTextBlock(
                               main: 'June 9th, 2022', desc: 'Version Log'),
-                          segmentedUI
-                              ? const SizedBox.shrink()
-                              : const SizedBox(
-                                  height: 30,
-                                ),
+                          const SizedBox(
+                            height: 40,
+                          ),
                         ],
                       ),
-                      segmentedUI
-                          ? const SizedBox(
-                              width: 30,
-                            )
-                          : const SizedBox.shrink(),
-                      segmentedUI
-                          ? const Flexible(child: Attributions())
-                          : const Attributions(),
+                      const Attributions()
                     ],
                   ),
                   const EndNote(),

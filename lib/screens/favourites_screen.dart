@@ -150,49 +150,72 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                         )
                       ]
                     : [
-                        Flexible(
-                          child: SizedBox(
-                            child: Icon(
-                              Icons.heart_broken_rounded,
-                              color: Colors.brown,
-                              size: MediaQuery.of(context).size.height < 500
-                                  ? 80
-                                  : 120,
-                            ),
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                child: Icon(
+                                  Icons.heart_broken_rounded,
+                                  color: Colors.brown,
+                                  size: height < 500 ? height * 0.16 : 100,
+                                ),
+                              ),
+                              SizedBox(
+                                height: height * 0.05,
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: AutoSizeText(
-                            'Looks like you don\'t like any of my jokes...',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.varelaRound(
-                              letterSpacing: 0.4,
-                              wordSpacing: 2,
-                              fontWeight: FontWeight.w600,
-                              fontSize: isLandscapeOriented ? 24 : 32,
-                              color: Colors.brown.shade800,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: AutoSizeText(
-                            'So... anyway,\nYou\'re adopted',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.varelaRound(
-                              letterSpacing: 0.4,
-                              wordSpacing: 2,
-                              fontWeight: FontWeight.w600,
-                              fontSize: isLandscapeOriented ? 20 : 26,
-                              color: Colors.brown.shade400,
-                            ),
+                        Expanded(
+                          flex: 3,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30),
+                                  child: AutoSizeText(
+                                    'Looks like you don\'t like any of my jokes...',
+                                    textAlign: TextAlign.center,
+                                    minFontSize: 8,
+                                    maxFontSize: 28,
+                                    style: GoogleFonts.varelaRound(
+                                      letterSpacing: 0.4,
+                                      wordSpacing: 2,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: isLandscapeOriented ? 24 : 28,
+                                      color: Colors.brown.shade800,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: height * 0.04),
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 30),
+                                    child: AutoSizeText(
+                                      'So... anyway,\nYou\'re adopted',
+                                      textAlign: TextAlign.center,
+                                      minFontSize: 8,
+                                      maxFontSize: 22,
+                                      style: GoogleFonts.varelaRound(
+                                        letterSpacing: 0.4,
+                                        wordSpacing: 2,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: isLandscapeOriented ? 20 : 22,
+                                        color: Colors.brown.shade400,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const Spacer()
+                            ],
                           ),
                         ),
                       ],

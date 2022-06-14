@@ -113,6 +113,7 @@ class _AgePickerScreenState extends State<AgePickerScreen>
   Widget build(BuildContext context) {
     bool isLandscapeOriented =
         MediaQuery.of(context).orientation == Orientation.landscape;
+    double height = MediaQuery.of(context).size.height;
     controller.forward();
     return Consumer<UserSettingsProvider>(
       builder: (context, userSettingsProvider, child) {
@@ -140,7 +141,8 @@ class _AgePickerScreenState extends State<AgePickerScreen>
           body: SafeArea(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
+                padding:
+                    EdgeInsets.only(left: 30, right: 30, bottom: height * 0.06),
                 child: AnimatedBuilder(
                   animation: controller,
                   builder: (context, child) {
@@ -149,79 +151,101 @@ class _AgePickerScreenState extends State<AgePickerScreen>
                       children: [
                         isLandscapeOriented
                             ? const SizedBox.shrink()
-                            : const Hero(
-                                tag: 'logo', child: LogoSVG(mini: true)),
-                        const SizedBox(
-                          height: 20,
+                            : SizedBox(
+                                height: height * 0.1,
+                                child: const FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Hero(
+                                      tag: 'logo', child: LogoSVG(mini: true)),
+                                ),
+                              ),
+                        SizedBox(
+                          height: height * 0.016,
                         ),
                         Expanded(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Opacity(
-                                opacity: opacityh1.value,
-                                child: AutoSizeText(
-                                  'So...',
-                                  minFontSize: 8,
-                                  maxFontSize: 22,
-                                  style: GoogleFonts.varelaRound(
-                                      letterSpacing: 0.4,
-                                      wordSpacing: 2,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 22,
-                                      color: Colors.brown.shade400),
+                              Expanded(
+                                child: Center(
+                                  child: Opacity(
+                                    opacity: opacityh1.value,
+                                    child: AutoSizeText(
+                                      'So...',
+                                      minFontSize: 8,
+                                      maxFontSize: 22,
+                                      style: GoogleFonts.varelaRound(
+                                          letterSpacing: 0.4,
+                                          wordSpacing: 2,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                          color: Colors.brown.shade400),
+                                    ),
+                                  ),
                                 ),
                               ),
-                              Opacity(
-                                opacity: opacityh2.value,
-                                child: AutoSizeText(
-                                  'How old are you, again?',
-                                  minFontSize: 16,
-                                  maxFontSize: 28,
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.varelaRound(
-                                      letterSpacing: 0.4,
-                                      wordSpacing: 2,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 28,
-                                      color: Colors.brown.shade800),
+                              Expanded(
+                                child: Center(
+                                  child: Opacity(
+                                    opacity: opacityh2.value,
+                                    child: AutoSizeText(
+                                      'How old are you, again?',
+                                      minFontSize: 16,
+                                      maxFontSize: 28,
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.varelaRound(
+                                          letterSpacing: 0.4,
+                                          wordSpacing: 2,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 28,
+                                          color: Colors.brown.shade800),
+                                    ),
+                                  ),
                                 ),
                               ),
-                              Opacity(
-                                opacity: opacityh3.value,
-                                child: AutoSizeText(
-                                  '"Dad! You forgot my birthday?!"',
-                                  textAlign: TextAlign.center,
-                                  minFontSize: 8,
-                                  maxFontSize: 22,
-                                  style: GoogleFonts.varelaRound(
-                                      letterSpacing: 0.4,
-                                      wordSpacing: 2,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 22,
-                                      color: Colors.brown.shade400),
+                              Expanded(
+                                child: Center(
+                                  child: Opacity(
+                                    opacity: opacityh3.value,
+                                    child: AutoSizeText(
+                                      '"Dad! You forgot my birthday?!"',
+                                      textAlign: TextAlign.center,
+                                      minFontSize: 8,
+                                      maxFontSize: 22,
+                                      style: GoogleFonts.varelaRound(
+                                          letterSpacing: 0.4,
+                                          wordSpacing: 2,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                          color: Colors.brown.shade400),
+                                    ),
+                                  ),
                                 ),
                               ),
-                              Opacity(
-                                opacity: opacityh4.value,
-                                child: AutoSizeText(
-                                  'Uhhh..',
-                                  textAlign: TextAlign.center,
-                                  minFontSize: 8,
-                                  maxFontSize: 22,
-                                  style: GoogleFonts.varelaRound(
-                                      letterSpacing: 0.4,
-                                      wordSpacing: 2,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 22,
-                                      color: Colors.brown.shade400),
+                              Expanded(
+                                child: Center(
+                                  child: Opacity(
+                                    opacity: opacityh4.value,
+                                    child: AutoSizeText(
+                                      'Uhhh..',
+                                      textAlign: TextAlign.center,
+                                      minFontSize: 8,
+                                      maxFontSize: 22,
+                                      style: GoogleFonts.varelaRound(
+                                          letterSpacing: 0.4,
+                                          wordSpacing: 2,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                          color: Colors.brown.shade400),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: height * 0.016,
                         ),
                         Opacity(
                           opacity: opacityOptions.value,
@@ -332,11 +356,6 @@ class _AgePickerScreenState extends State<AgePickerScreen>
                             ],
                           ),
                         ),
-                        isLandscapeOriented
-                            ? const SizedBox.shrink()
-                            : const SizedBox(
-                                height: 20,
-                              )
                       ],
                     );
                   },

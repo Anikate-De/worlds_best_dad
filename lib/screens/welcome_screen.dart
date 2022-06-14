@@ -15,6 +15,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Consumer2<JokeProvider, UserSettingsProvider>(
         builder: (context, jokeProvider, userSettingsProvider, child) {
       bool keepSafe = !userSettingsProvider.settings.containsKey('adult') ||
@@ -64,11 +65,15 @@ class WelcomeScreen extends StatelessWidget {
                           Orientation.landscape
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const [
+                          children: [
                             Center(
-                              child: LogoSVG(),
+                              child: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.22,
+                                  child: const FittedBox(
+                                      fit: BoxFit.scaleDown, child: LogoSVG())),
                             ),
-                            GreetingsTextColumn(),
+                            const GreetingsTextColumn(),
                           ],
                         )
                       : Column(
@@ -78,7 +83,10 @@ class WelcomeScreen extends StatelessWidget {
                             const SizedBox(
                               height: 64,
                             ),
-                            const LogoSVG(),
+                            SizedBox(
+                                height: height * 0.12,
+                                child: const FittedBox(
+                                    fit: BoxFit.scaleDown, child: LogoSVG())),
                             const SizedBox(
                               height: 12,
                             ),
@@ -119,27 +127,24 @@ class GreetingsTextColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(
-          width: 240,
-          child: FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Text(
-              'Hello there!',
-              style: GoogleFonts.pacifico(
-                  letterSpacing: 0.4,
-                  wordSpacing: 2,
-                  color: Colors.brown.shade800),
-            ),
-          ),
+        Text(
+          'Hello there!',
+          style: GoogleFonts.pacifico(
+              letterSpacing: 0.4,
+              wordSpacing: 2,
+              fontSize: isLandscape ? 28 : 40,
+              color: Colors.brown.shade800),
         ),
         Text(
           safeGreetings ? 'Kids' : 'My Sperms',
           style: GoogleFonts.pacifico(
-            fontSize: 22,
+            fontSize: isLandscape ? 18 : 22,
             letterSpacing: 1,
             wordSpacing: 2,
             color: Colors.brown.shade600,
@@ -154,7 +159,7 @@ class GreetingsTextColumn extends StatelessWidget {
             letterSpacing: 1,
             wordSpacing: 4,
             fontWeight: FontWeight.w700,
-            fontSize: 18,
+            fontSize: isLandscape ? 14 : 18,
             color: Colors.brown.shade400,
           ),
         ),
