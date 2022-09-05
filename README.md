@@ -9,6 +9,13 @@ A cross-platform joke/pun browsing application, made with Flutter, with Provider
 - Storage of `Favourite` jokes
 - Supports all six of platforms offered by Flutter 3.3
 
+## 📱 Screenshots
+![Screenshots](readme_images/screenshots1.png "`Welcome` Screen, `Disclaimer & Age Selection` Screen, `Joke` Screen")
+
+![Screenshots](readme_images/screenshots2.png "`Favourites` Screen, `Info` Screen")
+
+![Screenshots](readme_images/screenshots3.png "`Joke` Screen Landscape")
+
 ## ❓How to Use
 
 ### Pre-requisites
