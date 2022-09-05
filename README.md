@@ -1,4 +1,4 @@
-# World's Best Dad
+![World's Best Dad](readme_images/logo-banner.png)
 
 A cross-platform joke/pun browsing application, made with Flutter, with Provider state management and HTTP API Calls.
 
