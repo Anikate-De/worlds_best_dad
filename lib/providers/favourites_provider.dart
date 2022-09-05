@@ -63,4 +63,9 @@ class FavouritesProvider extends ChangeNotifier {
     return _favouriteJokes.any((Joke favourite) =>
         favourite.setup == joke.setup && favourite.punchline == joke.punchline);
   }
+
+  void resetProgress() async {
+    await sharedPreferences.clear();
+    notifyListeners();
+  }
 }

@@ -147,6 +147,7 @@ class AboutScreen extends StatelessWidget {
                                         label: 'CONFIRM',
                                         onPressed: () {
                                           userSettingsProvider.resetProgress();
+                                          favouritesProvider.resetProgress();
                                           favouritesProvider.getFavourites();
                                           userSettingsProvider
                                               .getUserSettings();
