@@ -16,6 +16,17 @@ A cross-platform joke/pun browsing application, made with Flutter, with Provider
 
 ![Screenshots](readme_images/screenshots3.png "`Joke` Screen Landscape")
 
+
+## 🍼 Dependencies
+- This project depends upon the `Joke API` to run
+
+  It was created by me and hosted on the Heroku Platform. It can be accessed by getting the URL below -
+
+  http://joke-api-ad.herokuapp.com/dad/public/random
+
+  Don't worry, this API is coming to GitHub, I'll make it openly available as soon as I can.
+
+
 ## ❓How to Use
 
 ### Pre-requisites
